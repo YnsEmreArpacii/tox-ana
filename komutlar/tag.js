@@ -3,8 +3,8 @@ const Discord = require('discord.js');
 exports.run = async (client, message) => {
   const yasak = client.emojis.get('701884491647549502');
   if (message.channel.id !== '701141469674864720') return message.channel.send(`${yasak} **Bu Komutu <#693286888341110885> Gidip Yazmalısınız.**`).then(m => m.delete(5000));  
-  const elmas = client.emojis.get('694626540977127424');
-  const emoji = client.emojis.get('694639615809814699');
+  const elmas = client.emojis.get('702138672186785863');
+  const emoji = client.emojis.get('702138672186785863');
       message.delete()
   const embed = new Discord.RichEmbed()
      .setColor('RANDOM')
