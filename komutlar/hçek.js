@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
 
 exports.run = async (client ,message ,args) => {
+  message.delete();
 if(!message.member.roles.get("702800562315591700") && !message.member.hasPermission('ADMINISTRATOR')) return message.channel.send("Bu Komutu Kullanmaya Yetkin Yok!!").then(m => m.delete(5000));
 
 const id = args[0]
