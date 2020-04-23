@@ -14,7 +14,7 @@ exports.run = async (client, message) => {
 ${elmas} **Sol Altta İsiminizin Yanında Mikrofon Ses ve Ayarlar Menüsü var.**
 ${elmas} **Ayarlar Menüsüne Tıklıyorsunuz.**
 ${elmas} **"HESABIM" Bölümünde Düzenleye Tıklayın**
-${elmas} **Kullanıcı Adınızın Başına "☭" Tagını Ekleyin.**
+${elmas} **Kullanıcı Adınızın Başına "Ꮦ" Tagını Ekleyin.**
 ${elmas} **Şifrenizi Yazıp Kaydete Tıklayın.**       
 `,true)
         .setFooter(`Ailemize Katılmak Mı İstiyorsun? Devam Etmelisin... Yardımlar Yolda Geliyor...`)
