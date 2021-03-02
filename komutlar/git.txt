@@ -13,7 +13,60 @@ const onlyembed = new Discord.MessageEmbed()
  if (message.mentions.users.first() === message.author) return message.channel.send('**Kendini seçemezsin.**')
  if (!msg.mentions.users.first()) return message.channel.send(onlyembed)
 
-msg.mentions.users.first().send(`**Merhaba ${msg.mentions.users.first().username}, ${msg.author} bulunduğun sesli kanala gelmek istiyor, kabul ediyor musun?\n*Unutma, 30 saniye içerisinde onaylamazsan istek iptal edilecek.**`).then(async (asd) => {
+  
+  
+  
+      const samblem = client.emojis.cache.get('810500929236500510');
+  const alev = client.emojis.cache.get('811677388735774760');
+  
+    let istek = new Discord.MessageEmbed()
+    .setColor("#000000")
+    .setTitle(`• Merhaba ${msg.mentions.users.first().username}`)
+    .setDescription(`
+    ${samblem} ${msg.author} Yanına Gelmek İstiyor.
+    ${samblem} Kabul Ediyormusunuz?
+    
+     30 Saniyen Var ${alev}
+    `)
+    .setFooter(`${message.author.tag}` , `${message.author.displayAvatarURL()}`)
+   .setTimestamp()  
+  
+      let odadayok1 = new Discord.MessageEmbed()
+    .setColor("#000000")
+    .setTitle(`• İstek Başarısız Oldu`)
+    .setDescription(`
+    ${samblem} ${msg.mentions.users.first().username} Yanına Gitme İsteğiniz Onayladı.
+    ${samblem} Fakat Odada Olmadığından Dolayı Başarısız Oldu.
+    
+     Başaramadık Abi ${alev}
+    `)
+    .setFooter(`${message.author.tag}` , `${message.author.displayAvatarURL()}`)
+   .setTimestamp()  
+  
+    let odadayok2 = new Discord.MessageEmbed()
+    .setColor("#000000")
+    .setTitle(`• İstek Başarısız Oldu`)
+    .setDescription(`
+    ${samblem} ${msg.mentions.users.first().username} İsteği Onayladın.
+    ${samblem} Fakat Bir Odada Olmadığından Dolayı Başarısız Oldu.
+    
+     Başaramadık Abi ${alev}
+    `)
+    .setFooter(`${message.author.tag}` , `${message.author.displayAvatarURL()}`)
+   .setTimestamp()
+    
+    let onaylanmadi = new Discord.MessageEmbed()
+    .setColor("#000000")
+    .setTitle(`• İstek Başarısız Oldu`)
+    .setDescription(`
+    ${samblem} ${msg.mentions.users.first().username} İsteğinizi Onaylamadı.
+    ${samblem} İsteğiniz Onaylanmadığından Dolayı İptal Oldu.
+    
+     Başaramadık Abi ${alev}
+    `)
+    .setFooter(`${message.author.tag}` , `${message.author.displayAvatarURL()}`)
+   .setTimestamp() 
+msg.mentions.users.first().send(istek).then(async (asd) => {
     await asd.react("✅");
     asd.awaitReactions(reactionFilter, {
         max: 1,
@@ -21,18 +74,20 @@ msg.mentions.users.first().send(`**Merhaba ${msg.mentions.users.first().username
         errors: ['time']
     }).then(async(c) => {
         if (!msg.guild.member(msg.mentions.users.first()).voice.channel){
-            msg.author.send(`**Kişi isteğini onayladı fakat herhangi bir odada yok, bir odaya girip tekrar istek gönder.**`);
-            msg.mentions.users.first().send(`**Herhangi bir odada olmadığın için onay başarısız.**`);
+            msg.author.send(odadayok1);
+            msg.mentions.users.first().send(odadayok2);
             return;
         }
         await msg.member.voice.setChannel(msg.guild.member(msg.mentions.users.first()).voice.channelID);
         asd.delete();
     }).catch(async(e) =>{
         await asd.delete();
-        msg.author.send(`${msg.mentions.users.first().username} isteğini onaylamadı.`).then(hehe=>{hehe.delete(120000)});
+        msg.author.send(onaylanmadi).then(message => {setTimeout(() => {message.delete()}, 60000);})
     })
 })
-  msg.channel.send(`**Merhaba ${msg.mentions.users.first().username}, ${msg.author} bulunduğun sesli kanala gelmek istiyor, kabul ediyor musun?\n*Unutma, 30 saniye içerisinde onaylamazsan istek iptal edilecek.**`).then(async (asd) => {
+  
+  
+  msg.channel.send(istek).then(async (asd) => {
     await asd.react("✅");
     asd.awaitReactions(reactionFilter, {
         max: 1,
@@ -40,15 +95,15 @@ msg.mentions.users.first().send(`**Merhaba ${msg.mentions.users.first().username
         errors: ['time']
     }).then(async(c) => {
         if (!msg.guild.member(msg.mentions.users.first()).voice.channel){
-            msg.channel.send(` **Kişi isteğini onayladı fakat herhangi bir odada yok, bir odaya girip tekrar istek gönder.** `);
-            msg.mentions.users.first().send(`**Herhangi bir odada olmadığın için onay başarısız.**`);
+            msg.channel.send(odadayok1);
+            msg.mentions.users.first().send(odadayok2);
             return;
         }
         await msg.member.voice.setChannel(msg.guild.member(msg.mentions.users.first()).voice.channelID);
         asd.delete();
     }).catch(async(e) =>{
         await asd.delete();
-        msg.author.send(`${msg.mentions.users.first().username} **isteğini onaylamadı.** `).then(hehe=>{hehe.delete(120000)});
+        msg.author.send(onaylanmadi).then(message => {setTimeout(() => {message.delete()}, 60000);})
     })
 })
 
